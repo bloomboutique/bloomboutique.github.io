@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Catálogo — Mi Negocio</title>
+<link rel="stylesheet" href="catalogo-publico.css">
+</head>
+<body>
+<header class="catalogo-header">
+  <div class="catalogo-header-inner">
+    
+    <div class="catalogo-titulo">
+      <h1>Mi Negocio</h1>
+      <p>Catálogo de productos — stock actualizado en tiempo real</p>
+    </div>
+  </div>
+</header>
+
+<div class="catalogo-controles">
+  <input type="search" id="catalogo-buscar" class="catalogo-buscar" placeholder="Buscar producto...">
+  
+</div>
+
+<div class="catalogo-grid">
+  
+  <div class="card-producto" data-nombre="jjknjk" data-categoria="Mercadería">
+    <div class="card-producto-foto">
+      
+      <span class="sin-foto">Sin foto</span>
+      
+    </div>
+    <div class="card-producto-body">
+      <span class="card-producto-categoria">Mercadería</span>
+      <h2 class="card-producto-nombre">jjknjk</h2>
+      <span class="card-producto-precio">S/ 62.00</span>
+      
+      <div class="card-producto-variantes">
+        
+          
+          <span class="variante-chip ">M / VESTIDO</span>
+          
+        
+      </div>
+      
+      <span class="badge-disponibilidad si">Disponible</span>
+      
+    </div>
+  </div>
+  
+</div>
+
+<p id="catalogo-vacio" class="catalogo-vacio" hidden>No hay productos que coincidan con tu búsqueda.</p>
+
+
+
+<script src="catalogo-publico.js"></script>
+</body>
+</html>
