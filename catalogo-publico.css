@@ -1,0 +1,273 @@
+/* Catálogo público (/catalogo) -- página standalone, NO comparte
+   style.css/design-tokens-v2.css de la app (esas asumen sesión iniciada y
+   son de tono utilitario). Paleta y componentes tomados de
+   docs/design-system-web-publica.md: es el mismo sistema pensado para la
+   futura web pública, aplicado acá a su primera pieza real. */
+
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --primary-soft: #eaf0fe;
+  --accent: #0d9488;
+  --bg: #fafaf8;
+  --bg-alt: #f4f1ea;
+  --surface: #ffffff;
+  --border: #e7e3d8;
+  --text: #1c1f26;
+  --muted: #57534e;
+  --whatsapp: #25d366;
+  --whatsapp-dark: #1da851;
+  --on-color: #fff;
+  --badge-ok-bg: #dcfce7;
+  --badge-ok-text: #166534;
+  --badge-bad-bg: #fee2e2;
+  --badge-bad-text: #991b1b;
+  --radius: 16px;
+  --radius-sm: 10px;
+  --shadow: 0 1px 3px rgba(28, 31, 38, 0.06), 0 1px 2px rgba(28, 31, 38, 0.04);
+  --shadow-md: 0 12px 28px rgba(28, 31, 38, 0.1), 0 4px 10px rgba(28, 31, 38, 0.06);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+}
+
+.catalogo-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 20px 16px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.catalogo-header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.catalogo-logo {
+  height: 40px;
+  width: 40px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.catalogo-titulo h1 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.catalogo-titulo p {
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.catalogo-controles {
+  max-width: 1100px;
+  margin: 20px auto 0;
+  padding: 0 16px;
+}
+
+.catalogo-buscar {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  background: var(--surface);
+}
+
+.catalogo-buscar:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 1px;
+}
+
+.catalogo-categorias {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.catalogo-chip {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.catalogo-chip.activo {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--on-color);
+}
+
+.catalogo-grid {
+  max-width: 1100px;
+  margin: 24px auto 80px;
+  padding: 0 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+.card-producto {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+}
+
+.card-producto-foto {
+  aspect-ratio: 4 / 3;
+  background: var(--bg-alt);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.card-producto-foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-producto-foto .sin-foto {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.card-producto-body {
+  padding: 14px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.card-producto-categoria {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.card-producto-nombre {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.card-producto-precio {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+}
+
+.card-producto-variantes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 4px 0;
+}
+
+.variante-chip {
+  font-size: 0.78rem;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--bg-alt);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.variante-chip.agotada {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+.badge-disponibilidad {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 999px;
+  width: fit-content;
+}
+
+.badge-disponibilidad.si {
+  background: var(--badge-ok-bg);
+  color: var(--badge-ok-text);
+}
+
+.badge-disponibilidad.no {
+  background: var(--badge-bad-bg);
+  color: var(--badge-bad-text);
+}
+
+.btn-whatsapp {
+  margin-top: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: var(--whatsapp);
+  color: var(--on-color);
+  text-decoration: none;
+  padding: 9px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.btn-whatsapp:hover {
+  background: var(--whatsapp-dark);
+}
+
+.catalogo-vacio {
+  text-align: center;
+  color: var(--muted);
+  padding: 60px 16px;
+}
+
+.whatsapp-float {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--whatsapp);
+  color: var(--on-color);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  text-decoration: none;
+  box-shadow: var(--shadow-md);
+  z-index: 20;
+}
+
+.whatsapp-float:hover {
+  background: var(--whatsapp-dark);
+}
+
+.card-producto[hidden] { display: none; }
