@@ -196,21 +196,36 @@ body {
 }
 
 .card-producto-foto {
-  /* 3:4 (vertical) en vez de 4:3 -- las fotos de moda son de cuerpo
-     entero (verticales); un marco horizontal las recortaba dejando solo
-     el torso, cortando cabeza y piernas. */
+  /* 3:4 (vertical) -- razonable para fotos de moda de cuerpo entero, pero
+     una prenda subida en CUALQUIER proporción (cuadrada, panorámica,
+     retrato largo) nunca debe recortarse: eso podría cortar justo la
+     parte que el cliente necesita ver. En vez de recortar (object-fit:
+     cover) o dejar un hueco liso (contain solo), se ponen DOS copias de
+     la misma foto superpuestas -- una de fondo, recortada y difuminada
+     para rellenar todo el marco sin verse vacío; la otra completa
+     encima, sin recortar ningún pixel de la prenda. */
+  position: relative;
   aspect-ratio: 3 / 4;
   background: var(--bg-alt);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   overflow: hidden;
 }
 
-.card-producto-foto img {
+.card-producto-foto-bg {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  filter: blur(18px) brightness(0.92) saturate(1.1);
+  transform: scale(1.15); /* tapa el borde nítido que deja el blur */
+}
+
+.card-producto-foto-fg {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .card-producto-foto .sin-foto {
