@@ -3,18 +3,27 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Catálogo — Mi Negocio</title>
+<title>Catálogo — BLOOM BOUTIQUE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="vendor/bigger-picture.css">
 <link rel="stylesheet" href="catalogo-publico.css">
 </head>
 <body>
-<header class="catalogo-header">
-  <div class="catalogo-header-inner">
+<header class="catalogo-portada">
+  <div class="catalogo-portada-flourish">✦</div>
+  
+  <p class="catalogo-nombre-negocio">BLOOM BOUTIQUE</p>
+  <h1 class="catalogo-titulo-script">Catálogo</h1>
+  
+  <p class="catalogo-slogan">BKHHK</p>
+  
+  <div class="catalogo-contacto">
     
-    <div class="catalogo-titulo">
-      <h1>Mi Negocio</h1>
-      <p>Catálogo de productos — stock actualizado en tiempo real</p>
-    </div>
+    
   </div>
+  <div class="catalogo-portada-flourish">✦</div>
 </header>
 
 <div class="catalogo-controles">
@@ -27,66 +36,177 @@
     
     <button type="button" class="catalogo-chip" data-categoria="TOPS">TOPS</button>
     
+    <button type="button" class="catalogo-chip" data-categoria="fdsfsd">fdsfsd</button>
+    
   </div>
   
 </div>
 
-<div class="catalogo-grid">
-  
-  <div class="card-producto" data-nombre="jjknjk" data-categoria="Mercadería">
-    <div class="card-producto-foto">
-      
-      <span class="sin-foto">Sin foto</span>
-      
-    </div>
-    <div class="card-producto-body">
-      <span class="card-producto-categoria">Mercadería</span>
-      <h2 class="card-producto-nombre">jjknjk</h2>
-      <span class="card-producto-precio">S/ 62.00</span>
-      
-      <div class="card-producto-variantes">
+
+<section class="categoria-seccion" data-categoria="fdsfsd">
+  <div class="categoria-divider">
+    <span class="categoria-divider-linea"></span>
+    <h2>fdsfsd</h2>
+    <span class="categoria-divider-linea"></span>
+  </div>
+  <div class="catalogo-grid">
+    
+    <div class="card-producto" data-nombre="fdsfdsfdsff" data-categoria="fdsfsd">
+      <div class="card-producto-foto">
         
-          
-          <span class="variante-chip ">M / VESTIDO</span>
-          
+        <a href="fotos/producto_73.png" data-img="fotos/producto_73.png" data-thumb="fotos/producto_73.png" data-alt="fdsfdsfdsff" class="foto-zoom">
+          <img src="fotos/producto_73.png" alt="fdsfdsfdsff" loading="lazy">
+        </a>
         
       </div>
-      
-      <span class="badge-disponibilidad si">Disponible</span>
-      
-    </div>
-  </div>
-  
-  <div class="card-producto" data-nombre="BODY MANGA CERO" data-categoria="TOPS">
-    <div class="card-producto-foto">
-      
-      <img src="fotos/producto_72.png" alt="BODY MANGA CERO" loading="lazy">
-      
-    </div>
-    <div class="card-producto-body">
-      <span class="card-producto-categoria">TOPS</span>
-      <h2 class="card-producto-nombre">BODY MANGA CERO</h2>
-      <span class="card-producto-precio">S/ 70.00</span>
-      
-      <div class="card-producto-variantes">
+      <div class="card-producto-body">
+        <h3 class="card-producto-nombre">fdsfdsfdsff</h3>
         
+        <span class="card-producto-precio">S/ 85.00</span>
+        
+        <div class="card-producto-variantes">
           
-          <span class="variante-chip ">M / azul</span>
+            
+            <span class="variante-chip "><span class="variante-color-punto" style="background:#111827;"></span>m / NEGRO
+            </span>
+            
           
+        </div>
+        
+        <span class="badge-disponibilidad si">Disponible</span>
         
       </div>
-      
-      <span class="badge-disponibilidad si">Disponible</span>
-      
     </div>
+    
   </div>
-  
-</div>
+</section>
+
+<section class="categoria-seccion" data-categoria="Mercadería">
+  <div class="categoria-divider">
+    <span class="categoria-divider-linea"></span>
+    <h2>Mercadería</h2>
+    <span class="categoria-divider-linea"></span>
+  </div>
+  <div class="catalogo-grid">
+    
+    <div class="card-producto" data-nombre="jjknjk" data-categoria="Mercadería">
+      <div class="card-producto-foto">
+        
+        <a href="fotos/producto_71.png" data-img="fotos/producto_71.png" data-thumb="fotos/producto_71.png" data-alt="jjknjk" class="foto-zoom">
+          <img src="fotos/producto_71.png" alt="jjknjk" loading="lazy">
+        </a>
+        
+      </div>
+      <div class="card-producto-body">
+        <h3 class="card-producto-nombre">jjknjk</h3>
+        
+        <span class="card-producto-precio">S/ 62.00</span>
+        
+        <div class="card-producto-variantes">
+          
+            
+            <span class="variante-chip ">M / VESTIDO
+            </span>
+            
+          
+        </div>
+        
+        <span class="badge-disponibilidad si">Disponible</span>
+        
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+<section class="categoria-seccion" data-categoria="TOPS">
+  <div class="categoria-divider">
+    <span class="categoria-divider-linea"></span>
+    <h2>TOPS</h2>
+    <span class="categoria-divider-linea"></span>
+  </div>
+  <div class="catalogo-grid">
+    
+    <div class="card-producto" data-nombre="BODY MANGA CERO" data-categoria="TOPS">
+      <div class="card-producto-foto">
+        
+        <a href="fotos/producto_72.png" data-img="fotos/producto_72.png" data-thumb="fotos/producto_72.png" data-alt="BODY MANGA CERO" class="foto-zoom">
+          <img src="fotos/producto_72.png" alt="BODY MANGA CERO" loading="lazy">
+        </a>
+        
+      </div>
+      <div class="card-producto-body">
+        <h3 class="card-producto-nombre">BODY MANGA CERO</h3>
+        
+        <p class="card-producto-material">Material: Suplex</p>
+        
+        <span class="card-producto-precio">S/ 70.00</span>
+        
+        <div class="card-producto-variantes">
+          
+            
+            <span class="variante-chip "><span class="variante-color-punto" style="background:#2563eb;"></span>M / azul
+            </span>
+            
+          
+            
+            <span class="variante-chip "><span class="variante-color-punto" style="background:#111827;"></span>l / NEGRO
+            </span>
+            
+          
+            
+            <span class="variante-chip "><span class="variante-color-punto" style="background:#dc2626;"></span>S / rojo
+            </span>
+            
+          
+            
+          
+        </div>
+        
+        <span class="badge-disponibilidad si">Disponible</span>
+        
+      </div>
+    </div>
+    
+  </div>
+</section>
+
 
 <p id="catalogo-vacio" class="catalogo-vacio" hidden>No hay productos que coincidan con tu búsqueda.</p>
 
 
+<section class="catalogo-politicas">
+  <h2>Políticas de venta</h2>
+  <pre class="catalogo-politicas-texto">SEPARACIÓN DE PRENDAS
+- Puedes realizar pago completo o adelanto.
+- Las prendas se reservan por un máximo de 7 días calendario.
+- Pasado este plazo, si no se completa el pago o coordina el recojo/envío, la separación se cancela y el adelanto no es reembolsable.
 
+PAGOS
+- Recojo en tienda: adelanto mínimo del 50% y saldo al recoger.
+- Envíos nacionales: el saldo restante debe cancelarse antes del envío.
+
+CAMBIOS
+- Se aceptan cambios de talla o color, según stock.
+- Plazo máximo: 48 horas después de la compra.
+- La prenda debe estar sin uso, en perfecto estado y con etiqueta.
+
+DEVOLUCIONES
+- El reembolso aplica únicamente por fallas de fabricación, previa evaluación.
+- Plazo máximo para solicitarlo: 3 días después de la compra.
+- No aplica por cambios de opinión, talla elegida o gusto personal.
+
+ENVÍOS
+- Realizamos envíos a nivel nacional.
+- Los tiempos de entrega dependen de la agencia de transporte.
+- El pedido se envía una vez confirmado el pago total.
+- Al realizar tu compra, aceptas nuestras políticas de venta.</pre>
+</section>
+
+
+
+
+<script src="vendor/bigger-picture.min.js"></script>
 <script src="catalogo-publico.js"></script>
 </body>
 </html>
