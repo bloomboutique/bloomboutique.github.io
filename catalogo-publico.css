@@ -26,6 +26,16 @@
   --radius-sm: 10px;
   --shadow: 0 1px 3px rgba(28, 31, 38, 0.06), 0 1px 2px rgba(28, 31, 38, 0.04);
   --shadow-md: 0 12px 28px rgba(28, 31, 38, 0.1), 0 4px 10px rgba(28, 31, 38, 0.06);
+
+  /* Acento "boutique" -- distinto del azul utilitario de la app a
+     propósito: esta página es material de cara al cliente (como el
+     catálogo de Canva que reemplaza), no una pantalla de trabajo interna.
+     Cambia estos 3 valores si el negocio tiene un color de marca propio. */
+  --boutique-accent: #6d2f56;
+  --boutique-accent-dark: #4f2140;
+  --boutique-gold: #c9a227;
+  --font-heading: "Playfair Display", Georgia, serif;
+  --font-script: "Dancing Script", cursive;
 }
 
 * { box-sizing: border-box; }
@@ -38,40 +48,61 @@ body {
   line-height: 1.6;
 }
 
-.catalogo-header {
-  background: var(--surface);
+.catalogo-portada {
+  background: linear-gradient(180deg, var(--bg-alt) 0%, var(--bg) 100%);
   border-bottom: 1px solid var(--border);
-  padding: 20px 16px;
-  position: sticky;
-  top: 0;
-  z-index: 10;
+  padding: 40px 16px 32px;
+  text-align: center;
 }
 
-.catalogo-header-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  gap: 12px;
+.catalogo-portada-flourish {
+  color: var(--boutique-gold);
+  font-size: 1.1rem;
+  letter-spacing: 0.5em;
 }
 
 .catalogo-logo {
-  height: 40px;
-  width: 40px;
-  border-radius: var(--radius-sm);
+  height: 64px;
+  width: 64px;
+  border-radius: 50%;
   object-fit: cover;
-  flex-shrink: 0;
+  margin: 8px auto;
+  display: block;
+  box-shadow: var(--shadow);
 }
 
-.catalogo-titulo h1 {
-  margin: 0;
-  font-size: 1.25rem;
+.catalogo-nombre-negocio {
+  margin: 4px 0 0;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-size: 0.95rem;
+  color: var(--text);
 }
 
-.catalogo-titulo p {
-  margin: 2px 0 0;
+.catalogo-titulo-script {
+  margin: 4px 0;
+  font-family: var(--font-script);
+  font-weight: 700;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  color: var(--boutique-accent);
+  line-height: 1.1;
+}
+
+.catalogo-slogan {
+  margin: 0 0 12px;
   color: var(--muted);
-  font-size: 0.9rem;
+  font-size: 0.95rem;
+}
+
+.catalogo-contacto {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 18px;
+  color: var(--muted);
+  font-size: 0.85rem;
 }
 
 .catalogo-controles {
@@ -90,7 +121,7 @@ body {
 }
 
 .catalogo-buscar:focus {
-  outline: 2px solid var(--primary);
+  outline: 2px solid var(--boutique-accent);
   outline-offset: 1px;
 }
 
@@ -112,19 +143,47 @@ body {
 }
 
 .catalogo-chip.activo {
-  background: var(--primary);
-  border-color: var(--primary);
+  background: var(--boutique-accent);
+  border-color: var(--boutique-accent);
   color: var(--on-color);
 }
 
-.catalogo-grid {
+.categoria-seccion {
   max-width: 1100px;
-  margin: 24px auto 80px;
+  margin: 0 auto;
   padding: 0 16px;
+}
+
+.categoria-divider {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 40px 0 20px;
+}
+
+.categoria-divider h2 {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1.4rem;
+  color: var(--boutique-accent);
+  white-space: nowrap;
+}
+
+.categoria-divider-linea {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--boutique-gold), transparent);
+}
+
+.catalogo-grid {
+  margin: 0 0 24px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 18px;
 }
+
+.categoria-seccion[hidden] { display: none; }
 
 .card-producto {
   background: var(--surface);
@@ -137,7 +196,10 @@ body {
 }
 
 .card-producto-foto {
-  aspect-ratio: 4 / 3;
+  /* 3:4 (vertical) en vez de 4:3 -- las fotos de moda son de cuerpo
+     entero (verticales); un marco horizontal las recortaba dejando solo
+     el torso, cortando cabeza y piernas. */
+  aspect-ratio: 3 / 4;
   background: var(--bg-alt);
   display: flex;
   align-items: center;
@@ -164,23 +226,24 @@ body {
   flex: 1;
 }
 
-.card-producto-categoria {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--accent);
-  font-weight: 600;
-}
-
 .card-producto-nombre {
   margin: 0;
-  font-size: 1.05rem;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1.15rem;
+}
+
+.card-producto-material {
+  margin: -4px 0 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-style: italic;
 }
 
 .card-producto-precio {
   font-size: 1.15rem;
   font-weight: 700;
-  color: var(--primary-dark);
+  color: var(--boutique-accent-dark);
 }
 
 .card-producto-variantes {
@@ -191,12 +254,23 @@ body {
 }
 
 .variante-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   font-size: 0.78rem;
   padding: 3px 9px;
   border-radius: 999px;
   background: var(--bg-alt);
   color: var(--text);
   border: 1px solid var(--border);
+}
+
+.variante-color-punto {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;
 }
 
 .variante-chip.agotada {
@@ -271,3 +345,31 @@ body {
 }
 
 .card-producto[hidden] { display: none; }
+
+.catalogo-politicas {
+  max-width: 700px;
+  margin: 20px auto 60px;
+  padding: 28px 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.catalogo-politicas h2 {
+  margin: 0 0 12px;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1.3rem;
+  color: var(--boutique-accent);
+  text-align: center;
+}
+
+.catalogo-politicas-texto {
+  font-family: inherit;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  color: var(--text);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  margin: 0;
+}
