@@ -34,6 +34,10 @@
   --boutique-accent: #6d2f56;
   --boutique-accent-dark: #4f2140;
   --boutique-gold: #c9a227;
+  --boutique-tan: #c4a882;
+  --boutique-tan-text: #fdfaf5;
+  --urgencia: #b45309;
+  --nuevo-bg: #14532d;
   --font-heading: "Playfair Display", Georgia, serif;
   --font-script: "Dancing Script", cursive;
 }
@@ -49,16 +53,43 @@ body {
 }
 
 .catalogo-portada {
+  position: relative;
   background: linear-gradient(180deg, var(--bg-alt) 0%, var(--bg) 100%);
   border-bottom: 1px solid var(--border);
   padding: 40px 16px 32px;
   text-align: center;
+  overflow: hidden;
 }
 
 .catalogo-portada-flourish {
   color: var(--boutique-gold);
   font-size: 1.1rem;
   letter-spacing: 0.5em;
+}
+
+/* Flor decorativa -- reservada a portada y pie de página a propósito: NO
+   se repite dentro de la grilla de productos. Ahí cada elemento decorativo
+   le resta un segundo de atención al producto mismo, que es lo que
+   realmente vende; en portada/pie no compite con nada. */
+.catalogo-flor {
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+}
+
+.catalogo-flor-izq {
+  position: absolute;
+  left: 4px;
+  top: 12px;
+  opacity: 0.7;
+}
+
+.catalogo-flor-der {
+  position: absolute;
+  right: 4px;
+  top: 12px;
+  opacity: 0.7;
+  transform: scaleX(-1);
 }
 
 .catalogo-logo {
@@ -159,6 +190,9 @@ body {
   align-items: center;
   gap: 14px;
   margin: 40px 0 20px;
+  padding: 14px 20px;
+  background: var(--boutique-tan);
+  border-radius: var(--radius-sm);
 }
 
 .categoria-divider h2 {
@@ -166,7 +200,7 @@ body {
   font-family: var(--font-heading);
   font-weight: 600;
   font-size: 1.4rem;
-  color: var(--boutique-accent);
+  color: var(--boutique-tan-text);
   white-space: nowrap;
 }
 
@@ -233,6 +267,39 @@ body {
   font-size: 0.85rem;
 }
 
+.badge-nuevo {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+  background: var(--nuevo-bg);
+  color: var(--on-color);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 999px;
+  box-shadow: var(--shadow);
+}
+
+/* Cinta/banderín de precio -- una forma que no es un simple rectángulo
+   dirige la vista directo al precio, en vez de perderse como un dato más
+   entre el resto del texto de la tarjeta. */
+.card-producto-precio-cinta {
+  position: absolute;
+  left: 0;
+  bottom: 14px;
+  z-index: 2;
+  background: var(--boutique-accent);
+  color: var(--on-color);
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 6px 20px 6px 14px;
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%);
+  box-shadow: var(--shadow);
+}
+
 .card-producto-body {
   padding: 14px 16px 16px;
   display: flex;
@@ -253,12 +320,6 @@ body {
   color: var(--muted);
   font-size: 0.82rem;
   font-style: italic;
-}
-
-.card-producto-precio {
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: var(--boutique-accent-dark);
 }
 
 .card-producto-variantes {
@@ -293,6 +354,12 @@ body {
   text-decoration: line-through;
 }
 
+.variante-urgencia {
+  color: var(--urgencia);
+  font-weight: 700;
+  text-decoration: none;
+}
+
 .badge-disponibilidad {
   display: inline-block;
   font-size: 0.78rem;
@@ -312,8 +379,13 @@ body {
   color: var(--badge-bad-text);
 }
 
-.btn-whatsapp {
+.card-producto-acciones {
+  display: flex;
+  gap: 8px;
   margin-top: 8px;
+}
+
+.btn-whatsapp {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -325,6 +397,25 @@ body {
   border-radius: var(--radius-sm);
   font-size: 0.9rem;
   font-weight: 600;
+}
+
+.card-producto-acciones .btn-whatsapp {
+  flex: 1;
+}
+
+.btn-compartir {
+  flex-shrink: 0;
+  width: 42px;
+  min-height: 44px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: var(--radius-sm);
+  font-size: 1.15rem;
+  cursor: pointer;
+}
+
+.btn-compartir:hover {
+  background: var(--bg-alt);
 }
 
 .btn-whatsapp:hover {
@@ -363,10 +454,9 @@ body {
 
 .catalogo-politicas {
   max-width: 700px;
-  margin: 20px auto 60px;
+  margin: 20px auto 0;
   padding: 28px 24px;
-  background: var(--surface);
-  border: 1px solid var(--border);
+  background: var(--boutique-tan);
   border-radius: var(--radius);
 }
 
@@ -375,7 +465,7 @@ body {
   font-family: var(--font-heading);
   font-weight: 600;
   font-size: 1.3rem;
-  color: var(--boutique-accent);
+  color: var(--boutique-tan-text);
   text-align: center;
 }
 
@@ -383,8 +473,59 @@ body {
   font-family: inherit;
   white-space: pre-wrap;
   overflow-wrap: break-word;
-  color: var(--text);
+  color: var(--boutique-tan-text);
   font-size: 0.9rem;
   line-height: 1.7;
   margin: 0;
+}
+
+.catalogo-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+  padding: 40px 16px 90px; /* espacio extra abajo para no tapar el boton flotante */
+  margin-top: 40px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.catalogo-footer .catalogo-flor {
+  opacity: 0.6;
+  margin-bottom: 4px;
+}
+
+.catalogo-footer-logo {
+  height: 48px;
+  width: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  opacity: 0.85;
+  margin-bottom: 4px;
+}
+
+/* Marca de agua -- una sola vez, grande y muy tenue: da un aire "premium"
+   de fondo sin robarle contraste al texto ni competir con las fotos de
+   producto (el mismo criterio que ya se aplica a las flores decorativas). */
+.catalogo-marca-agua {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  margin: auto;
+  width: min(70vw, 640px);
+  height: min(70vw, 640px);
+  object-fit: contain;
+  opacity: 0.045;
+  pointer-events: none;
+  user-select: none;
+}
+
+.catalogo-footer-nombre {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--boutique-accent);
+  font-size: 1.05rem;
 }
