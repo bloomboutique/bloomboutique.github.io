@@ -54,4 +54,59 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   }
+
+  // "Compartir": el celular de la clienta se vuelve un canal de difusión
+  // gratis -- puede reenviarle un producto puntual a una amiga por
+  // WhatsApp en vez de tener que mandarle el catálogo entero. El enlace
+  // apunta al mismo catálogo con un ancla al producto (#producto-N), así
+  // que al abrirlo el navegador salta directo a esa tarjeta.
+  document.querySelectorAll(".btn-compartir").forEach((boton) => {
+    boton.addEventListener("click", async () => {
+      const nombre = boton.dataset.compartirNombre || "";
+      const precio = boton.dataset.compartirPrecio || "";
+      const ancla = boton.dataset.compartirAnchor || "";
+      const url = `${window.location.origin}${window.location.pathname}#${ancla}`;
+      const texto = `${nombre} (${precio}) -- catálogo de ${document.title.replace("Catálogo — ", "")}`;
+
+      if (navigator.share) {
+        try {
+          await navigator.share({ title: nombre, text: texto, url });
+          return;
+        } catch (_err) {
+          return; // el usuario canceló el cuadro de compartir -- no hacer nada más
+        }
+      }
+      // Sin Web Share API (la mayoría de navegadores de escritorio): abre
+      // WhatsApp sin un número fijo, para que la clienta elija a quién
+      // mandárselo.
+      window.open(
+        `https://wa.me/?text=${encodeURIComponent(`${texto} ${url}`)}`,
+        "_blank",
+        "noopener",
+      );
+    });
+  });
+
+  // Aviso silencioso a NexaNova de que alguien preguntó por un producto --
+  // "mejor esfuerzo": la ruta es relativa a propósito, así que en el
+  // catálogo servido en vivo (/catalogo) apunta a NexaNova mismo, y en el
+  // catálogo estático publicado en GitHub Pages simplemente no existe esa
+  // ruta ahí -- el fetch falla en silencio y no pasa nada más. Nunca
+  // bloquea ni retrasa que se abra WhatsApp.
+  document
+    .querySelectorAll(".btn-whatsapp[data-producto-id]")
+    .forEach((enlace) => {
+      enlace.addEventListener("click", () => {
+        try {
+          fetch("/api/catalogo/interes", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ product_id: enlace.dataset.productoId }),
+            keepalive: true,
+          }).catch(() => {});
+        } catch (_err) {
+          /* silencioso a propósito -- esto nunca debe interrumpir al cliente */
+        }
+      });
+    });
 });
