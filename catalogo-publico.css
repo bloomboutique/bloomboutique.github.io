@@ -15,8 +15,8 @@
   --border: #e7e3d8;
   --text: #1c1f26;
   --muted: #57534e;
-  --whatsapp: #25d366;
-  --whatsapp-dark: #1da851;
+  --whatsapp: #128c47;
+  --whatsapp-dark: #0d6633;
   --on-color: #fff;
   --badge-ok-bg: #dcfce7;
   --badge-ok-text: #166534;
@@ -35,9 +35,10 @@
   --boutique-accent-dark: #4f2140;
   --boutique-gold: #c9a227;
   --boutique-tan: #c4a882;
-  --boutique-tan-text: #fdfaf5;
+  --boutique-tan-text: #3d2817;
   --urgencia: #b45309;
   --nuevo-bg: #14532d;
+  --me-encanta: #e0245e;
   --font-heading: "Playfair Display", Georgia, serif;
   --font-script: "Dancing Script", cursive;
 }
@@ -136,14 +137,28 @@ body {
   font-size: 0.85rem;
 }
 
+/* Fija (sticky) al hacer scroll -- con varias categorías y decenas de
+   productos, sin esto hay que volver a subir hasta arriba cada vez que se
+   quiere cambiar de categoría o buscar algo distinto. */
 .catalogo-controles {
+  position: sticky;
+  top: 0;
+  z-index: 15;
+  background: var(--bg);
   max-width: 1100px;
   margin: 20px auto 0;
-  padding: 0 16px;
+  padding: 10px 16px;
+  box-shadow: var(--shadow);
+}
+
+.catalogo-controles-fila {
+  display: flex;
+  gap: 8px;
 }
 
 .catalogo-buscar {
-  width: 100%;
+  flex: 1;
+  min-width: 0;
   padding: 12px 16px;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
@@ -152,6 +167,22 @@ body {
 }
 
 .catalogo-buscar:focus {
+  outline: 2px solid var(--boutique-accent);
+  outline-offset: 1px;
+}
+
+.catalogo-talla {
+  flex-shrink: 0;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  background: var(--surface);
+  color: var(--text);
+  max-width: 42%;
+}
+
+.catalogo-talla:focus {
   outline: 2px solid var(--boutique-accent);
   outline-offset: 1px;
 }
@@ -267,6 +298,100 @@ body {
   font-size: 0.85rem;
 }
 
+/* Carrusel de fotos -- desliza con el dedo (o el mouse) entre todas las
+   fotos del producto, en vez del cuadrito de miniaturas de antes. Sin
+   nada de JS para el gesto en sí: scroll-snap nativo del navegador ya
+   hace touch/swipe, arrastre con mouse y hasta las flechas de teclado al
+   enfocar el carrusel -- más fluido y compatible que reimplementarlo. */
+.card-producto-foto-carrusel {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.card-producto-foto-carrusel::-webkit-scrollbar {
+  display: none;
+}
+
+.card-producto-foto-slide {
+  position: relative;
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.card-producto-foto-slide-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* "Me encanta" por foto -- mide qué combinación exacta de modelo+color
+   engancha más a simple vista (ver _migration_033_me_encanta_foto).
+   Esquina opuesta a la cinta de precio y aparte de los puntos del
+   carrusel para no competir por atención con ninguno de los dos. */
+.card-producto-foto-like {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  z-index: 2;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 85%);
+  box-shadow: var(--shadow);
+  color: var(--muted);
+  transition: transform 0.15s, color 0.15s;
+}
+
+.card-producto-foto-like svg {
+  width: 18px;
+  height: 18px;
+}
+
+.card-producto-foto-like:active {
+  transform: scale(0.88);
+}
+
+.card-producto-foto-like.activo {
+  color: var(--me-encanta);
+}
+
+.card-producto-foto-like.activo svg {
+  fill: var(--me-encanta);
+}
+
+.card-producto-foto-dots {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  gap: 5px;
+}
+
+.card-producto-foto-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 55%);
+  box-shadow: 0 0 2px rgb(0 0 0 / 25%);
+  transition: background-color 0.15s, width 0.15s;
+}
+
+.card-producto-foto-dot.activo {
+  width: 16px;
+  background: var(--surface);
+}
+
 .badge-nuevo {
   position: absolute;
   top: 10px;
@@ -298,6 +423,16 @@ body {
   padding: 6px 20px 6px 14px;
   clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%);
   box-shadow: var(--shadow);
+}
+
+.card-producto-precio-cinta.con-oferta {
+  background: var(--urgencia);
+}
+
+.card-producto-precio-cinta .precio-anterior {
+  opacity: 0.75;
+  font-weight: 500;
+  margin-right: 4px;
 }
 
 .card-producto-body {
@@ -404,13 +539,16 @@ body {
 }
 
 .btn-compartir {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
   width: 42px;
   min-height: 44px;
   border: 1px solid var(--border);
   background: var(--surface);
   border-radius: var(--radius-sm);
-  font-size: 1.15rem;
+  color: var(--boutique-accent);
   cursor: pointer;
 }
 
@@ -440,7 +578,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.6rem;
   text-decoration: none;
   box-shadow: var(--shadow-md);
   z-index: 20;
@@ -448,6 +585,35 @@ body {
 
 .whatsapp-float:hover {
   background: var(--whatsapp-dark);
+}
+
+/* Íconos de línea (SVG) en vez de emojis -- se ven igual en todos los
+   dispositivos, a diferencia de un emoji que cada celular/SO dibuja
+   distinto. currentColor hereda el color del texto/botón que lo contiene. */
+.icono-catalogo {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  vertical-align: -4px;
+}
+
+.catalogo-contacto .icono-catalogo,
+.catalogo-footer .icono-catalogo {
+  width: 15px;
+  height: 15px;
+  vertical-align: -3px;
+}
+
+.btn-compartir .icono-catalogo {
+  width: 19px;
+  height: 19px;
+  vertical-align: middle;
+}
+
+.whatsapp-float .icono-catalogo {
+  width: 28px;
+  height: 28px;
+  vertical-align: middle;
 }
 
 .card-producto[hidden] { display: none; }
@@ -528,4 +694,26 @@ body {
   font-weight: 600;
   color: var(--boutique-accent);
   font-size: 1.05rem;
+}
+
+.catalogo-footer-fecha {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.catalogo-footer-redes {
+  display: flex;
+  gap: 14px;
+  margin-top: 4px;
+}
+
+.catalogo-footer-redes a {
+  color: var(--boutique-accent);
+  display: inline-flex;
+}
+
+.catalogo-footer-redes .icono-catalogo {
+  width: 22px;
+  height: 22px;
 }
