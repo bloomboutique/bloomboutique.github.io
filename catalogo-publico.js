@@ -124,6 +124,21 @@ document.addEventListener("DOMContentLoaded", () => {
   };
   const likesGuardados = leerLikesGuardados();
 
+  // El catálogo estático publicado a GitHub Pages no tiene servidor
+  // propio detrás -- ver comentario en catalogo_publico.html sobre la
+  // etiqueta <meta name="likes-endpoint">. Si existe, es la URL de un
+  // Cloudflare Worker (u otro servicio externo) que guarda el like
+  // hasta que NexaNova se sincroniza; si no existe (catálogo en vivo),
+  // se usa la ruta relativa normal del propio NexaNova.
+  const likesEndpointExterno =
+    document.querySelector('meta[name="likes-endpoint"]')?.content || "";
+  const urlMeEncanta = (photoId) =>
+    likesEndpointExterno
+      ? `${likesEndpointExterno}/like`
+      : `/api/catalogo/foto/${photoId}/me-encanta`;
+  const cuerpoMeEncanta = (photoId, dar) =>
+    likesEndpointExterno ? { photo_id: photoId, dar } : { dar };
+
   document.querySelectorAll(".card-producto-foto-like").forEach((boton) => {
     const photoId = boton.dataset.photoId;
     boton.classList.toggle("activo", likesGuardados.has(photoId));
@@ -138,10 +153,10 @@ document.addEventListener("DOMContentLoaded", () => {
       else likesGuardados.delete(photoId);
       guardarLikes(likesGuardados);
 
-      fetch(`/api/catalogo/foto/${photoId}/me-encanta`, {
+      fetch(urlMeEncanta(photoId), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ dar }),
+        body: JSON.stringify(cuerpoMeEncanta(photoId, dar)),
       }).catch(() => {
         // Sin internet momentáneo: el corazón ya cambió visualmente y
         // quedó guardado localmente -- no vale la pena molestar a la
